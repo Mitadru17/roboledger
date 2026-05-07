@@ -3,7 +3,7 @@
 This directory contains the files required to run a real-time, 3D Webots simulation synchronized with the RoboLedger autonomous protocol.
 
 ## Prerequisites
-1. **Webots R2023b** (or newer) installed on Windows. Download from [cyberbotics.com](https://cyberbotics.com/).
+1. **Webots R2025a** (or newer) installed on Windows. Download from [cyberbotics.com](https://cyberbotics.com/).
 2. A working Python environment for RoboLedger.
 
 ## How it Works
