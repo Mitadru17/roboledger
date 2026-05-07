@@ -42,6 +42,18 @@ def simulate_navigation(
     Returns:
         dict: Navigation result with waypoints and status
     """
+    if config.WEBOTS_ENABLED:
+        from simulator.webots_bridge import webots_navigate
+        return webots_navigate(robot, start_pos, end_pos, task_id)
+
+    return _internal_navigate(robot, start_pos, end_pos, task_id)
+
+def _internal_navigate(
+    robot,
+    start_pos: tuple,
+    end_pos: tuple,
+    task_id: str,
+) -> dict:
     logger.section("NAVIGATION")
     
     distance = helpers.haversine_distance(

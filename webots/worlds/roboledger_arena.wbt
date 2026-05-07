@@ -1,0 +1,39 @@
+#VRML_SIM R2023b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/floors/protos/Floor.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/gctronic/e-puck/protos/E-puck.proto"
+
+WorldInfo {
+  info [
+    "RoboLedger Real-Time Webots Simulation"
+  ]
+  title "RoboLedger Arena"
+  basicTimeStep 16
+}
+Viewpoint {
+  orientation -0.22 0.95 0.22 1.3
+  position -7 5 7
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Floor {
+  size 20 20
+  tileSize 1 1
+}
+E-puck {
+  translation 0 0 0
+  controller "roboledger_controller"
+  supervisor TRUE
+  camera_width 160
+  camera_height 120
+  turretSlot [
+    GPS {
+    }
+    Compass {
+    }
+  ]
+}

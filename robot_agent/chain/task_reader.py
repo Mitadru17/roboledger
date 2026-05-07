@@ -115,6 +115,22 @@ def generate_task() -> dict:
     start_pos = helpers.add_coordinate_jitter(*start_loc)
     end_pos = helpers.add_coordinate_jitter(*end_loc)
     
+    if config.WEBOTS_ENABLED:
+        # Constrain generated tasks to the 20m x 20m Webots arena
+        lat_min = config.WEBOTS_GPS_LAT_CENTER - config.WEBOTS_GPS_LAT_HALF_RANGE
+        lat_max = config.WEBOTS_GPS_LAT_CENTER + config.WEBOTS_GPS_LAT_HALF_RANGE
+        lon_min = config.WEBOTS_GPS_LON_CENTER - config.WEBOTS_GPS_LON_HALF_RANGE
+        lon_max = config.WEBOTS_GPS_LON_CENTER + config.WEBOTS_GPS_LON_HALF_RANGE
+        
+        start_pos = (
+            max(lat_min, min(lat_max, start_pos[0])),
+            max(lon_min, min(lon_max, start_pos[1]))
+        )
+        end_pos = (
+            max(lat_min, min(lat_max, end_pos[0])),
+            max(lon_min, min(lon_max, end_pos[1]))
+        )
+    
     # Calculate actual distance
     distance = helpers.haversine_distance(start_pos[0], start_pos[1], end_pos[0], end_pos[1])
     

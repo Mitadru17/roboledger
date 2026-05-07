@@ -76,6 +76,8 @@ def parse_args():
                         help="Number of robots for swarm simulation (default: 1)")
     parser.add_argument("--showcase", action="store_true",
                         help="Full hackathon showcase mode with all enhancements")
+    parser.add_argument("--webots", action="store_true",
+                        help="Enable Webots real-time simulation bridge")
     return parser.parse_args()
 
 
@@ -349,6 +351,11 @@ def run_showcase_mode(args):
 def main():
     """Main entry point — run the autonomous robot agent(s)."""
     args = parse_args()
+    
+    if args.webots:
+        config.WEBOTS_ENABLED = True
+        from simulator.webots_bridge import initialize_webots_bridge
+        initialize_webots_bridge()
 
     # Apply speed settings
     if args.fast:

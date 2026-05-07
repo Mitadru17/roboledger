@@ -114,8 +114,25 @@ VALIDATOR_DISAGREE_PROB = float(os.getenv("VALIDATOR_DISAGREE_PROB", "0.20"))# v
 SHOWCASE_ROBOTS = int(os.getenv("SHOWCASE_ROBOTS", "4"))                    # fleet size
 
 # ─────────────────────────────────────────────
+# Webots Integration
+# ─────────────────────────────────────────────
+WEBOTS_ENABLED = os.getenv("WEBOTS_ENABLED", "false").lower() == "true"
+WEBOTS_DATA_DIR = os.path.abspath(os.getenv("WEBOTS_DATA_DIR",
+    os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "webots_data")))
+WEBOTS_POLL_INTERVAL = float(os.getenv("WEBOTS_POLL_INTERVAL", "0.2"))       # seconds
+WEBOTS_ARRIVAL_THRESHOLD = float(os.getenv("WEBOTS_ARRIVAL_THRESHOLD", "0.3"))  # meters
+WEBOTS_NAV_TIMEOUT = float(os.getenv("WEBOTS_NAV_TIMEOUT", "120"))           # seconds
+
+# Coordinate mapping: Webots 20m arena ↔ GPS campus
+WEBOTS_ARENA_HALF = 10.0
+WEBOTS_GPS_LAT_CENTER = 37.7750
+WEBOTS_GPS_LON_CENTER = -122.41875
+WEBOTS_GPS_LAT_HALF_RANGE = 0.002
+WEBOTS_GPS_LON_HALF_RANGE = 0.00325
+
+# ─────────────────────────────────────────────
 # Application Metadata
 # ─────────────────────────────────────────────
 APP_NAME = "RoboLedger"
 APP_TAGLINE = "Decentralized Robot Coordination & Settlement Protocol"
-APP_VERSION = "0.2.0"
+APP_VERSION = "0.3.0"
