@@ -1,0 +1,7 @@
+venv/
+__pycache__/
+*.pyc
+.env
+.pytest_cache/
+robot_agent/logs/*.log
+robot_agent/venv/
