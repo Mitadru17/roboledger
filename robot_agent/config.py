@@ -100,8 +100,22 @@ ENABLE_ANIMATIONS = os.getenv("ENABLE_ANIMATIONS", "true").lower() == "true"
 DEMO_SPEED = float(os.getenv("DEMO_SPEED", "1.0"))  # 1.0 = normal, 0.5 = fast, 2.0 = slow
 
 # ─────────────────────────────────────────────
+# Failure Scenarios (Showcase Mode)
+# ─────────────────────────────────────────────
+BATTERY_FAILURE_PROB = float(os.getenv("BATTERY_FAILURE_PROB", "0.15"))      # low battery reject
+PROOF_REJECTION_PROB = float(os.getenv("PROOF_REJECTION_PROB", "0.12"))      # BFT proof rejection
+TIMEOUT_FAILURE_PROB = float(os.getenv("TIMEOUT_FAILURE_PROB", "0.08"))      # task timeout
+NAV_INTERRUPT_PROB = float(os.getenv("NAV_INTERRUPT_PROB", "0.10"))          # nav interruption
+VALIDATOR_DISAGREE_PROB = float(os.getenv("VALIDATOR_DISAGREE_PROB", "0.20"))# validator disagreement
+
+# ─────────────────────────────────────────────
+# Multi-Robot Competition (Showcase Mode)
+# ─────────────────────────────────────────────
+SHOWCASE_ROBOTS = int(os.getenv("SHOWCASE_ROBOTS", "4"))                    # fleet size
+
+# ─────────────────────────────────────────────
 # Application Metadata
 # ─────────────────────────────────────────────
 APP_NAME = "RoboLedger"
 APP_TAGLINE = "Decentralized Robot Coordination & Settlement Protocol"
-APP_VERSION = "0.1.0"
+APP_VERSION = "0.2.0"

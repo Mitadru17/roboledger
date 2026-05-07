@@ -74,6 +74,8 @@ def parse_args():
                         help="Skip Solana Devnet connection")
     parser.add_argument("--robots", type=int, default=1,
                         help="Number of robots for swarm simulation (default: 1)")
+    parser.add_argument("--showcase", action="store_true",
+                        help="Full hackathon showcase mode with all enhancements")
     return parser.parse_args()
 
 
@@ -297,6 +299,53 @@ def run_multi_robot(args):
     )
 
 
+def run_showcase_mode(args):
+    """
+    Run the full hackathon showcase with all enhancements.
+
+    Activates: multi-robot competition, failure injection,
+    intelligent reasoning, cinematic effects, live dashboard,
+    and advanced protocol simulation.
+    """
+    start_time = datetime.now(timezone.utc)
+    robot = None
+
+    try:
+        # Import showcase module (only when needed)
+        from simulator.showcase import run_showcase
+
+        # Initialize primary robot
+        robot = initialize_robot(name=args.name)
+
+        # Initialize wallet
+        keypair = initialize_wallet()
+
+        # Connect to Solana (optional)
+        client = initialize_solana(keypair, offline=args.offline)
+
+        # Run showcase
+        num_cycles = args.cycles or config.NUM_DEMO_TASKS
+        run_showcase(
+            robot=robot,
+            keypair=keypair,
+            num_cycles=num_cycles,
+            offline=args.offline,
+        )
+
+    except KeyboardInterrupt:
+        logger.console.print("\n")
+        logger.warning("Interrupted by user")
+        if robot:
+            display_shutdown(robot, start_time, robot.tasks_completed)
+    except Exception as e:
+        logger.error(f"Showcase error: {e}")
+        import traceback
+        traceback.print_exc()
+        if robot:
+            display_shutdown(robot, start_time, robot.tasks_completed)
+        sys.exit(1)
+
+
 def main():
     """Main entry point — run the autonomous robot agent(s)."""
     args = parse_args()
@@ -307,7 +356,9 @@ def main():
     elif args.slow:
         config.DEMO_SPEED = 2.0
 
-    if args.robots > 1:
+    if args.showcase:
+        run_showcase_mode(args)
+    elif args.robots > 1:
         run_multi_robot(args)
     else:
         run_single_robot(args)
